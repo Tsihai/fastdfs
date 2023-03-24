@@ -1,6 +1,5 @@
 package com.sihai.fastdfs;
 
-import jdk.nashorn.internal.runtime.logging.Logger;
 import org.csource.common.MyException;
 import org.csource.common.NameValuePair;
 import org.csource.fastdfs.*;
@@ -15,6 +14,9 @@ import java.time.Instant;
 @SpringBootTest
 class FastdfsApplicationTests {
 
+    /**
+     * 测试上传
+     */
     @Test
     void contextLoads() throws MyException, IOException {
         ClientGlobal.initByProperties("fastdfs-client.properties");
@@ -23,13 +25,14 @@ class FastdfsApplicationTests {
         StorageServer storageServer = null;
         StorageClient1 client1 = new StorageClient1(trackerServer, storageServer);
         NameValuePair pairs[] = null;
-        String fileId = client1.upload_file1("C:\\Users\\13169\\Desktop\\xsz.jpg", "jpg", pairs);
-        System.out.println(fileId);
+        String fileId = client1.upload_file1("/Users/sihai/Pictures/352879.jpg", "jpg", pairs);
+        System.out.println("http://124.223.117.194/"+fileId);
 
     }
 
-
-
+    /**
+     * 测试下载
+     */
     @Test
     void testDownload() {
         try {
@@ -57,7 +60,7 @@ class FastdfsApplicationTests {
         int ts = (int) Instant.now().getEpochSecond();
         String token = ProtoCommon.getToken("M00/00/00/fN2Ns2Mnt9GANIiIAArP_zvf8BQ273.jpg", ts, "FastDFS0821");
         StringBuilder sb = new StringBuilder();
-        sb.append("http://124.221.141.179/")
+        sb.append("http://124.223.117.194/")
                 .append("group1/M00/00/00/fN2Ns2Mnt9GANIiIAArP_zvf8BQ273.jpg")
             .append("?token=")
             .append(token)
